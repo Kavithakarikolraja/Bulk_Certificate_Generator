@@ -1,0 +1,28 @@
+{
+  "title": "Advanced Microservices & Cloud Architecture",
+  "issuer_name": "Tech Leadership Institute",
+  "issue_date": "2026-10-09",
+  "template_theme": "gold",
+  "recipients": [
+    {
+      "name": "Alexander Wright",
+      "email": "alex.wright@techlead.org"
+    },
+    {
+      "name": "Elena Rostova",
+      "email": "elena.rostova@cloudscale.io"
+    },
+    {
+      "name": "Marcus Vance",
+      "email": "marcus.vance@enterprise.com"
+    },
+    {
+      "name": "",
+      "email": "invalid-blank-name@example.com"
+    },
+    {
+      "name": "Samantha Chen",
+      "email": "samantha.chen@ai-innovations.net"
+    }
+  ]
+}

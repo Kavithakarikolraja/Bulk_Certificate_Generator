@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CertiBatch Pro - Production Bulk Certificate Engine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Ambient Animated Background -->
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="container">
+        <!-- Top Navigation Bar -->
+        <header class="navbar">
+            <div class="brand">
+                <div class="brand-icon">📜</div>
+                <div>
+                    <h1 class="brand-title">CertiBatch Engine</h1>
+                    <p class="brand-subtitle">High-Performance Asynchronous Certificate System</p>
+                </div>
+            </div>
+            <div class="nav-badges">
+                <button id="theme-toggle-btn" class="btn btn-secondary theme-toggle-btn" onclick="toggleAppTheme()">🌙 Dark Mode</button>
+                <div class="chip-status">
+                    <div class="pulse-dot"></div> FastAPI Online
+                </div>
+                <a href="/docs" target="_blank" class="btn btn-secondary" style="padding: 8px 16px; font-size: 13px;">
+                    📖 API Swagger Docs
+                </a>
+            </div>
+        </header>
+
+        <!-- Stats Overview Banner -->
+        <div class="stats-banner">
+            <div class="stat-card">
+                <div class="stat-info">
+                    <div class="stat-val" id="banner-total-jobs">0</div>
+                    <div class="stat-lbl">Total Batch Jobs</div>
+                </div>
+                <div class="stat-icon" style="background: rgba(99, 102, 241, 0.15); color: #818CF8;">⚙️</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-info">
+                    <div class="stat-val" id="banner-total-certs">0</div>
+                    <div class="stat-lbl">Certificates Generated</div>
+                </div>
+                <div class="stat-icon" style="background: rgba(16, 185, 129, 0.15); color: #34D399;">📜</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-info">
+                    <div class="stat-val" id="banner-success-rate">100%</div>
+                    <div class="stat-lbl">Generation Accuracy</div>
+                </div>
+                <div class="stat-icon" style="background: rgba(245, 158, 11, 0.15); color: #FBBF24;">✨</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-info">
+                    <div class="stat-val">Vector PDF</div>
+                    <div class="stat-lbl">Output Format</div>
+                </div>
+                <div class="stat-icon" style="background: rgba(139, 92, 246, 0.15); color: #C084FC;">🎨</div>
+            </div>
+        </div>
+
+        <!-- Segmented Navigation Tabs -->
+        <nav class="tabs-wrapper">
+            <button class="tab-btn active" data-tab="tab-generate">✨ New Batch Job</button>
+            <button class="tab-btn" data-tab="tab-history">📊 Job Tracking & History</button>
+            <button class="tab-btn" data-tab="tab-verify">🔍 Public Verification</button>
+            <button class="tab-btn" data-tab="tab-preview">🎨 Live Template Studio</button>
+        </nav>
+
+        <!-- TAB 1: BULK GENERATION -->
+        <section id="tab-generate" class="tab-content active">
+            <div class="glass-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">🚀 Launch Certificate Generation Job</h2>
+                    <p class="panel-desc">Submit a list of recipients via CSV file upload or JSON payload for asynchronous background generation.</p>
+                </div>
+
+                <form id="generate-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="title">Event / Course Title</label>
+                            <input type="text" id="title" required value="Advanced Cloud & Microservices Masterclass" placeholder="e.g. Python Engineering 2026">
+                        </div>
+                        <div class="form-group">
+                            <label for="issuer_name">Issuing Organization / Institute</label>
+                            <input type="text" id="issuer_name" required value="Global Tech Academy" placeholder="e.g. Stanford AI Lab">
+                        </div>
+                        <div class="form-group">
+                            <label for="issue_date">Date of Issuance</label>
+                            <input type="date" id="issue_date" required value="2026-10-09">
+                        </div>
+                    </div>
+
+                    <!-- Visual Theme Picker (Canva Style Gallery) -->
+                    <div class="form-group" style="margin-bottom: 26px;">
+                        <label>Select Canva-Style Certificate Theme</label>
+                        <input type="hidden" id="template_theme_input" value="gold">
+                        <div class="theme-grid">
+                            <div class="theme-card selected" data-theme="gold">
+                                <div class="theme-swatch" style="background: linear-gradient(135deg, #1E3A8A 0%, #D4AF37 100%);"></div>
+                                <div class="theme-name">Gold Classic</div>
+                            </div>
+                            <div class="theme-card" data-theme="indigo">
+                                <div class="theme-swatch" style="background: linear-gradient(135deg, #4338CA 0%, #6366F1 100%);"></div>
+                                <div class="theme-name">Indigo Modern</div>
+                            </div>
+                            <div class="theme-card" data-theme="emerald">
+                                <div class="theme-swatch" style="background: linear-gradient(135deg, #065F46 0%, #10B981 100%);"></div>
+                                <div class="theme-name">Emerald Honor</div>
+                            </div>
+                            <div class="theme-card" data-theme="crimson">
+                                <div class="theme-swatch" style="background: linear-gradient(135deg, #991B1B 0%, #EF4444 100%);"></div>
+                                <div class="theme-name">Crimson Elite</div>
+                            </div>
+                            <div class="theme-card" data-theme="platinum">
+                                <div class="theme-swatch" style="background: linear-gradient(135deg, #0F172A 0%, #94A3B8 100%);"></div>
+                                <div class="theme-name">Platinum Exec</div>
+                            </div>
+                            <div class="theme-card" data-theme="cyberpunk">
+                                <div class="theme-swatch" style="background: linear-gradient(135deg, #6D28D9 0%, #06B6D4 100%);"></div>
+                                <div class="theme-name">Cyber Tech</div>
+                            </div>
+                            <div class="theme-card" data-theme="minimalist">
+                                <div class="theme-swatch" style="background: linear-gradient(135deg, #27272A 0%, #E11D48 100%);"></div>
+                                <div class="theme-name">Minimal Luxe</div>
+                            </div>
+                            <div class="theme-card" data-theme="sunset">
+                                <div class="theme-swatch" style="background: linear-gradient(135deg, #C2410C 0%, #F59E0B 100%);"></div>
+                                <div class="theme-name">Sunset Warmth</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input Method Toggle -->
+                    <div class="toggle-bar">
+                        <button type="button" id="toggle-json" class="toggle-btn active" onclick="setInputMode('json')">Paste JSON Payload</button>
+                        <button type="button" id="toggle-csv" class="toggle-btn" onclick="setInputMode('csv')">Upload CSV File</button>
+                    </div>
+
+                    <!-- JSON Input Area -->
+                    <div id="json-input-group" class="form-group" style="margin-bottom: 26px;">
+                        <label for="json_recipients">Recipients List (JSON Array)</label>
+                        <textarea id="json_recipients" rows="8">[
+  { "name": "Sophia Martinez", "email": "sophia@example.com" },
+  { "name": "Liam Johnson", "email": "liam@example.com" },
+  { "name": "Noah Williams", "email": "noah@domain.org" },
+  { "name": "", "email": "invalid-recipient-test" }
+]</textarea>
+                        <small style="color:var(--text-muted); margin-top:4px;">Fault Tolerance Demo: The 4th item has a blank name and will fail gracefully without interrupting valid items!</small>
+                    </div>
+
+                    <!-- CSV File Input Area -->
+                    <div id="csv-input-group" class="form-group" style="display:none; margin-bottom: 26px;">
+                        <label>Upload CSV File</label>
+                        <input type="file" id="csv_file_input" accept=".csv" style="display:none">
+                        <div id="dropzone" class="dropzone">
+                            <div class="dropzone-icon">📁</div>
+                            <div style="font-weight:700; font-size:15px; color:var(--text-primary)" id="dropzone-filename">Drag & drop your CSV file here, or click to browse</div>
+                            <div style="font-size:13px; color:var(--text-secondary); margin-top:4px;">Supported headers: <code>name</code>, <code>email</code></div>
+                        </div>
+                        <div style="margin-top:14px; text-align:right;">
+                            <button type="button" class="btn btn-secondary" onclick="downloadSampleCsv()">📥 Download Sample CSV Template</button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width:100%; padding:15px; font-size:15px;">
+                        🚀 Launch Asynchronous Generation Job
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- TAB 2: JOB TRACKING & HISTORY -->
+        <section id="tab-history" class="tab-content">
+            <div class="glass-panel">
+                <div class="panel-header" style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <h2 class="panel-title">📊 Generation Jobs & Real-Time Tracking</h2>
+                        <p class="panel-desc">Monitor progress, failure reports, and download certificate archives</p>
+                    </div>
+                    <button class="btn btn-secondary" onclick="loadJobHistory()">🔄 Refresh List</button>
+                </div>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Job ID</th>
+                                <th>Course / Event Title</th>
+                                <th>Status</th>
+                                <th>Progress</th>
+                                <th>Success / Failed</th>
+                                <th>Submitted At</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="job-history-tbody">
+                            <!-- Populated via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: CERTIFICATE VERIFICATION -->
+        <section id="tab-verify" class="tab-content">
+            <div class="glass-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">🔍 Public Certificate Verification Portal</h2>
+                    <p class="panel-desc">Verify authentic cryptographic certificate credentials using unique certificate IDs</p>
+                </div>
+
+                <form id="verify-form" style="display:flex; gap:14px; margin-bottom:28px;">
+                    <input type="text" id="verify_code_input" placeholder="Enter Certificate ID e.g. CERT-9F2B-4A1C" required style="font-size:16px; font-weight:700; letter-spacing:1px; text-transform:uppercase;">
+                    <button type="submit" class="btn btn-primary" style="white-space:nowrap; padding: 0 28px;">Verify Record</button>
+                </form>
+
+                <div id="verify-result-box" style="display:none;"></div>
+            </div>
+        </section>
+
+        <!-- TAB 4: CANVA CERTIFICATE DESIGN STUDIO -->
+        <section id="tab-preview" class="tab-content">
+            <div class="glass-panel">
+                <div class="panel-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+                    <div>
+                        <h2 class="panel-title">🎨 Canva-Style Certificate Design Studio</h2>
+                        <p class="panel-desc">Design custom parameters below and click "See Certificate Design" to view the visual layout.</p>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-primary" onclick="renderStudioPreview()" style="font-size:15px; padding:14px 28px;">
+                            👁️ See Certificate Design
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-grid" style="margin-bottom:24px;">
+                    <div class="form-group">
+                        <label for="studio_heading">Certificate Main Heading</label>
+                        <select id="studio_heading">
+                            <option value="CERTIFICATE OF ACHIEVEMENT" selected>CERTIFICATE OF ACHIEVEMENT</option>
+                            <option value="CERTIFICATE OF COMPLETION">CERTIFICATE OF COMPLETION</option>
+                            <option value="CERTIFICATE OF EXCELLENCE">CERTIFICATE OF EXCELLENCE</option>
+                            <option value="CERTIFICATE OF APPRECIATION">CERTIFICATE OF APPRECIATION</option>
+                            <option value="CERTIFICATE OF PARTICIPATION">CERTIFICATE OF PARTICIPATION</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="studio_name">Sample Recipient Name</label>
+                        <input type="text" id="studio_name" value="Jane Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="studio_course">Course / Event Program</label>
+                        <input type="text" id="studio_course" value="Executive AI & Cloud Architecture">
+                    </div>
+                    <div class="form-group">
+                        <label for="studio_issuer">Issuing Organization</label>
+                        <input type="text" id="studio_issuer" value="Global Tech Institute">
+                    </div>
+                </div>
+
+                <!-- Studio Theme Swatches -->
+                <div class="form-group" style="margin-bottom:26px;">
+                    <label>Select Canva Design Theme Palette</label>
+                    <input type="hidden" id="studio_theme_input" value="gold">
+                    <div class="theme-grid">
+                        <div class="theme-card selected" data-stheme="gold" onclick="selectStudioTheme('gold', this)">
+                            <div class="theme-swatch" style="background: linear-gradient(135deg, #1E3A8A 0%, #D4AF37 100%);"></div>
+                            <div class="theme-name">Gold Classic</div>
+                        </div>
+                        <div class="theme-card" data-stheme="indigo" onclick="selectStudioTheme('indigo', this)">
+                            <div class="theme-swatch" style="background: linear-gradient(135deg, #4338CA 0%, #6366F1 100%);"></div>
+                            <div class="theme-name">Indigo Modern</div>
+                        </div>
+                        <div class="theme-card" data-stheme="emerald" onclick="selectStudioTheme('emerald', this)">
+                            <div class="theme-swatch" style="background: linear-gradient(135deg, #065F46 0%, #10B981 100%);"></div>
+                            <div class="theme-name">Emerald Honor</div>
+                        </div>
+                        <div class="theme-card" data-stheme="crimson" onclick="selectStudioTheme('crimson', this)">
+                            <div class="theme-swatch" style="background: linear-gradient(135deg, #991B1B 0%, #EF4444 100%);"></div>
+                            <div class="theme-name">Crimson Elite</div>
+                        </div>
+                        <div class="theme-card" data-stheme="platinum" onclick="selectStudioTheme('platinum', this)">
+                            <div class="theme-swatch" style="background: linear-gradient(135deg, #0F172A 0%, #94A3B8 100%);"></div>
+                            <div class="theme-name">Platinum Exec</div>
+                        </div>
+                        <div class="theme-card" data-stheme="cyberpunk" onclick="selectStudioTheme('cyberpunk', this)">
+                            <div class="theme-swatch" style="background: linear-gradient(135deg, #6D28D9 0%, #06B6D4 100%);"></div>
+                            <div class="theme-name">Cyber Tech</div>
+                        </div>
+                        <div class="theme-card" data-stheme="minimalist" onclick="selectStudioTheme('minimalist', this)">
+                            <div class="theme-swatch" style="background: linear-gradient(135deg, #27272A 0%, #E11D48 100%);"></div>
+                            <div class="theme-name">Minimal Luxe</div>
+                        </div>
+                        <div class="theme-card" data-stheme="sunset" onclick="selectStudioTheme('sunset', this)">
+                            <div class="theme-swatch" style="background: linear-gradient(135deg, #C2410C 0%, #F59E0B 100%);"></div>
+                            <div class="theme-name">Sunset Warmth</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visual Studio Viewport -->
+                <div id="studio-viewport-container" style="width:100%; min-height:500px; background:var(--bg-surface); border-radius:var(--radius-lg); border:1px solid var(--border-subtle); overflow:hidden; position:relative; display:flex; align-items:center; justify-content:center; padding:20px;">
+                    <div id="studio-placeholder-text" style="text-align:center; color:var(--text-muted); padding:40px 20px;">
+                        <div style="font-size:48px; margin-bottom:12px;">🎨</div>
+                        <h4 style="color:var(--text-primary); margin-bottom:8px; font-size:18px;">Ready to Preview Your Custom Design</h4>
+                        <p style="font-size:14px; max-width:520px; margin:0 auto; line-height:1.6;">Customize the template parameters above and click <strong style="color:var(--primary)">"👁️ See Certificate Design"</strong> to open up the design sample inline right here without any file download.</p>
+                    </div>
+                    <img id="studio-preview-img" src="" alt="Certificate Design Preview" style="width:100%; max-height:540px; object-fit:contain; border-radius:var(--radius-md); display:none; border:1px solid var(--border-subtle); box-shadow:var(--shadow-card);">
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <!-- MODAL 1: Real-time Progress Tracking -->
+    <div id="progress-modal" class="modal-overlay">
+        <div class="glass-panel modal-card">
+            <div class="panel-header">
+                <h3 class="panel-title">⚙️ Processing Certificate Generation</h3>
+                <p class="panel-desc">Tracking Job ID: <code id="modal-job-id" style="color:var(--primary)">-</code></p>
+            </div>
+
+            <div style="margin-bottom:28px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-weight:700; font-size:15px;">
+                    <span>Batch Completion Status</span>
+                    <span id="progress-percent-text" style="color:var(--primary)">0%</span>
+                </div>
+                <div class="progress-bar-bg" style="height:10px; background:rgba(255,255,255,0.08); border-radius:6px; overflow:hidden;">
+                    <div id="progress-bar-inner" style="height:100%; width:0%; background:var(--primary-gradient); border-radius:6px; transition:width 0.3s ease;"></div>
+                </div>
+            </div>
+
+            <div class="form-grid" style="margin-bottom:28px; text-align:center;">
+                <div style="background:var(--bg-surface); padding:16px; border-radius:var(--radius-md); border:1px solid var(--border-subtle);">
+                    <div style="font-size:24px; font-weight:800;" id="stat-total">0</div>
+                    <div style="font-size:12px; color:var(--text-secondary); margin-top:2px;">Total Items</div>
+                </div>
+                <div style="background:var(--bg-surface); padding:16px; border-radius:var(--radius-md); border:1px solid var(--border-subtle);">
+                    <div style="font-size:24px; font-weight:800;" id="stat-processed">0</div>
+                    <div style="font-size:12px; color:var(--text-secondary); margin-top:2px;">Processed</div>
+                </div>
+                <div style="background:var(--bg-surface); padding:16px; border-radius:var(--radius-md); border:1px solid var(--border-subtle);">
+                    <div style="font-size:24px; font-weight:800; color:var(--accent-emerald)" id="stat-success">0</div>
+                    <div style="font-size:12px; color:var(--text-secondary); margin-top:2px;">Successful</div>
+                </div>
+                <div style="background:var(--bg-surface); padding:16px; border-radius:var(--radius-md); border:1px solid var(--border-subtle);">
+                    <div style="font-size:24px; font-weight:800; color:var(--accent-crimson)" id="stat-failed">0</div>
+                    <div style="font-size:12px; color:var(--text-secondary); margin-top:2px;">Failed</div>
+                </div>
+            </div>
+
+            <div style="text-align:center; margin-bottom:24px;">
+                <span id="modal-status-badge" class="status-pill status-processing">PROCESSING</span>
+            </div>
+
+            <div id="modal-actions" style="display:none; text-align:center;">
+                <div style="display:flex; gap:14px; justify-content:center;">
+                    <a id="btn-download-zip" href="#" class="btn btn-emerald" style="display:none;">📦 Download All Certificates (ZIP)</a>
+                    <button class="btn btn-secondary" onclick="closeModal()">Close Window</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: Job Recipients Breakdown -->
+    <div id="details-modal" class="modal-overlay">
+        <div class="glass-panel modal-card" style="max-width:850px;">
+            <div class="panel-header" style="display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                    <h3 class="panel-title" id="details-job-title">Job Recipients Breakdown</h3>
+                    <p class="panel-desc">Individual validation results and PDF downloads</p>
+                </div>
+                <button class="btn btn-secondary" onclick="closeDetailsModal()" style="padding:6px 14px;">✕ Close</button>
+            </div>
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Recipient Name</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Validation / Error</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="details-recipients-tbody">
+                        <!-- Populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

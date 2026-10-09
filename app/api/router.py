@@ -1,0 +1,9 @@
+from fastapi import APIRouter
+from app.api.jobs import router as jobs_router
+from app.api.certificates import router as certificates_router
+from app.api.templates import router as templates_router
+
+api_router = APIRouter()
+api_router.include_router(jobs_router)
+api_router.include_router(certificates_router)
+api_router.include_router(templates_router)
